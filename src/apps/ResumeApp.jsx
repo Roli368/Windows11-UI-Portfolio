@@ -1,5 +1,5 @@
 
-import { Download, MapPin, Briefcase, GraduationCap, Github, Linkedin, Mail } from 'lucide-react';
+import { Download, Github, Linkedin, Mail } from 'lucide-react';
 
 export default function ResumeApp() {
   const skills = [

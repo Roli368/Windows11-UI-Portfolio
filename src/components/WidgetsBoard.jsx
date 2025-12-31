@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion} from "framer-motion";
 
 // The 'export default' is crucial to fix the Taskbar.jsx error
 export default function WidgetsBoard({ closeBoard }) {

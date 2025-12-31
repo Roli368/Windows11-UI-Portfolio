@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 
 export default function Weather() {
   const [weather, setWeather] = useState({ temp: "24°C", condition: "Cloudy" });
