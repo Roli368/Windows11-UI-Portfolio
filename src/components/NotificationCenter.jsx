@@ -1,4 +1,4 @@
-import { useState, } from "react";
+/*import { useState, } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function NotificationCenter({ closeCenter }) {
@@ -35,7 +35,7 @@ export default function NotificationCenter({ closeCenter }) {
       transition={{ type: "spring", damping: 25, stiffness: 200 }}
       className="fixed top-0 right-0 h-[calc(100vh-48px)] w-full sm:w-[360px] bg-[#0f172a]/80 backdrop-blur-3xl border-l border-white/10 shadow-2xl z-[10000] p-6 flex flex-col gap-6 select-none"
     >
-      {/* Header */}
+     
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <h3 className="text-sm font-bold text-white tracking-tight">Notification Center</h3>
@@ -51,7 +51,7 @@ export default function NotificationCenter({ closeCenter }) {
         )}
       </div>
 
-      {/* Notification List */}
+     
       <div className="flex-1 space-y-3 overflow-y-auto no-scrollbar pr-1">
         <AnimatePresence mode="popLayout">
           {notifications.length > 0 ? (
@@ -92,7 +92,7 @@ export default function NotificationCenter({ closeCenter }) {
         </AnimatePresence>
       </div>
 
-      {/* Dynamic Calendar Section */}
+     
       <div className="border-t border-white/10 pt-6">
         <div className="flex justify-between items-center mb-5 px-1">
           <span className="text-xs font-bold text-white tracking-wide">{currentMonthName} {currentYear}</span>
@@ -117,7 +117,7 @@ export default function NotificationCenter({ closeCenter }) {
             <span key={d} className="text-[9px] font-black text-slate-600 uppercase h-8 flex items-center justify-center">{d}</span>
           ))}
           
-          {/* Calendar Grid Generation */}
+         
           {Array.from({ length: firstDayOfMonth }).map((_, i) => (
             <div key={`empty-${i}`} className="h-8" />
           ))}
@@ -134,6 +134,157 @@ export default function NotificationCenter({ closeCenter }) {
                 <span className={`text-[11px] w-7 h-7 flex items-center justify-center rounded-full transition-all cursor-default
                   ${isToday 
                     ? 'bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-500/40 scale-110' 
+                    : 'text-slate-400 hover:bg-white/10 hover:text-white'}`}>
+                  {dayNum}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+*/
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+export default function NotificationCenter({ closeCenter }) {
+  const [notifications, setNotifications] = useState([
+    { id: 1, title: "System Update", body: "Your portfolio is now v2.0.5 stable.", time: "Just now" },
+    { id: 2, title: "GitHub", body: "New star on your ML Repository!", time: "2h ago" },
+    { id: 3, title: "Achievement", body: "HackVision NSUT certificate added.", time: "5h ago" },
+  ]);
+
+  const today = new Date();
+  const [viewDate, setViewDate] = useState(new Date());
+
+  const currentMonthName = viewDate.toLocaleString('default', { month: 'long' });
+  const currentYear = viewDate.getFullYear();
+  
+  const firstDayOfMonth = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1).getDay();
+  const daysInMonth = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 0).getDate();
+
+  const clearAll = () => setNotifications([]);
+  const removeNotif = (id) => setNotifications(prev => prev.filter(n => n.id !== id));
+
+  const changeMonth = (offset) => {
+    setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() + offset, 1));
+  };
+
+  return (
+    <motion.div
+      initial={{ x: "100%", opacity: 0 }} // Starts off-screen relatively
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: "100%", opacity: 0 }}
+      transition={{ type: "spring", damping: 25, stiffness: 200 }}
+      // Responsive width and dynamic viewport height
+      className="fixed top-0 right-0 h-[calc(100dvh-48px)] w-full sm:w-[360px] bg-[#0f172a]/90 backdrop-blur-3xl border-l border-white/10 shadow-2xl z-[10000] p-4 sm:p-6 flex flex-col gap-6 select-none"
+    >
+      {/* Header */}
+      <div className="flex justify-between items-center">
+        <div className="flex flex-col">
+          <h3 className="text-sm font-bold text-white tracking-tight">Notification Center</h3>
+          <p className="text-[10px] text-slate-500 font-mono">v2.0.5.build_stable</p>
+        </div>
+        {notifications.length > 0 && (
+          <motion.button 
+            whileTap={{ scale: 0.95 }} // Added touch feedback
+            onClick={clearAll}
+            className="text-[10px] px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md text-slate-400 hover:text-white transition-all"
+          >
+            Clear all
+          </motion.button>
+        )}
+      </div>
+
+      {/* Notification List */}
+      <div className="flex-1 space-y-3 overflow-y-auto no-scrollbar pr-1">
+        <AnimatePresence mode="popLayout">
+          {notifications.length > 0 ? (
+            notifications.map((n) => (
+              <motion.div 
+                layout
+                key={n.id}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="group relative bg-white/5 border border-white/5 p-4 rounded-2xl hover:bg-white/10 transition-colors cursor-default"
+              >
+                <button 
+                  onClick={() => removeNotif(n.id)}
+                  // Visible by default on touch devices, hover-only on desktop
+                  className="absolute top-2 right-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 p-1.5 hover:bg-red-500/20 rounded text-slate-500 hover:text-red-400 transition-all"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+                <div className="flex justify-between items-center mb-1 pr-6">
+                  <span className="text-[11px] font-bold text-indigo-400 uppercase tracking-wider">{n.title}</span>
+                  <span className="text-[10px] text-slate-500 font-mono">{n.time}</span>
+                </div>
+                <p className="text-[11px] text-slate-300 leading-relaxed pr-2">{n.body}</p>
+              </motion.div>
+            ))
+          ) : (
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              className="h-full flex flex-col items-center justify-center text-slate-500 text-xs gap-3"
+            >
+              <div className="w-10 h-10 rounded-full border border-slate-800 flex items-center justify-center opacity-40">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              </div>
+              <span className="italic">All caught up!</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* Dynamic Calendar Section */}
+      <div className="border-t border-white/10 pt-4 sm:pt-6 mb-2">
+        <div className="flex justify-between items-center mb-4 px-1">
+          <span className="text-xs font-bold text-white tracking-wide">{currentMonthName} {currentYear}</span>
+          <div className="flex gap-1 sm:gap-2 text-slate-400">
+            <motion.button 
+              whileTap={{ scale: 0.8 }}
+              onClick={() => changeMonth(-1)}
+              className="p-2 hover:bg-white/10 rounded-md hover:text-white transition-all"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            </motion.button>
+            <motion.button 
+              whileTap={{ scale: 0.8 }}
+              onClick={() => changeMonth(1)}
+              className="p-2 hover:bg-white/10 rounded-md hover:text-white transition-all"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </motion.button>
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-7 text-center gap-y-1">
+          {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map(d => (
+            <span key={d} className="text-[9px] font-black text-slate-600 uppercase h-8 flex items-center justify-center">{d}</span>
+          ))}
+          
+          {Array.from({ length: firstDayOfMonth }).map((_, i) => (
+            <div key={`empty-${i}`} className="h-8" />
+          ))}
+          
+          {Array.from({ length: daysInMonth }).map((_, i) => {
+            const dayNum = i + 1;
+            const isToday = 
+              dayNum === today.getDate() && 
+              viewDate.getMonth() === today.getMonth() && 
+              viewDate.getFullYear() === today.getFullYear();
+
+            return (
+              <div key={dayNum} className="flex items-center justify-center h-8">
+                <span className={`text-[11px] w-7 h-7 flex items-center justify-center rounded-full transition-all cursor-default
+                  ${isToday 
+                    ? 'bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-500/40 scale-105' 
                     : 'text-slate-400 hover:bg-white/10 hover:text-white'}`}>
                   {dayNum}
                 </span>
