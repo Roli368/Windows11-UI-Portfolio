@@ -1,0 +1,82 @@
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #111 0%, #000 100%);
+  color: white;
+  overflow: hidden;
+  font-family: "Segoe UI", "Inter", system-ui, sans-serif;
+  height: 100vh;
+  width: 100vw;
+}
+
+@layer components {
+  /* Glassmorphism Effect */
+  .glass {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+
+  /* Custom Thin Scrollbar for Windows */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full hover:bg-indigo-500/40 transition-colors;
+  }
+
+  /* Text Glow for Data Science vibe */
+  .text-glow {
+    text-shadow: 0 0 10px rgba(129, 140, 248, 0.4);
+  }
+
+  /* Dragging state for Windows */
+  .react-draggable-dragging {
+    @apply cursor-grabbing !opacity-90 scale-[1.02] transition-transform duration-75;
+  }
+}
+
+/* Fix for Draggable boundaries */
+.react-draggable {
+  touch-action: none;
+}
+
+/* Add to your index.css */
+.glass-morphism {
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(12px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+/* Custom Scrollbar for Chrome, Safari, and Edge */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(129, 140, 248, 0.5); /* Indigo-400 color to match your theme */
+}
+
+/* Firefox Support */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
