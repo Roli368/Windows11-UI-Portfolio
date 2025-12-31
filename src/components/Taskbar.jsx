@@ -134,7 +134,7 @@ export default function Taskbar({ windows, activeWindow, openApp, toggleMinimize
         <div className="flex items-center gap-1 justify-center flex-1 h-full overflow-x-auto no-scrollbar px-2">
           {windows.map((w) => {
             const isActive = activeWindow === w;
-            const isMinimized = minimized?.includes(w);
+           
             return (
               <motion.button 
                 whileHover={{ scale: 1.1, y: -2 }}
