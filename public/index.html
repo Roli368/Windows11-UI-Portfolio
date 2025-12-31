@@ -15,7 +15,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Roli Portfolio">
     
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/favicon.ico" />
    
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     
@@ -28,13 +28,12 @@
         padding: 0;
         width: 100%;
         height: 100%;
-        /* Prevents full-page bounce, allowing inner components to scroll */
         overflow: hidden; 
         background-color: #0f172a;
-        /* Windows 11 Feel: prevents accidental text selection while dragging */
+        /* Prevents accidental text selection while interacting with UI */
         user-select: none;
         -webkit-user-select: none;
-        /* Removes grey box when tapping buttons on Android/iOS */
+        /* Removes grey highlight box on mobile taps */
         -webkit-tap-highlight-color: transparent;
         font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
       }
@@ -44,7 +43,7 @@
         height: 100%;
       }
 
-      /* Fix for notched phones to ensure Taskbar is always clickable */
+      /* Fix for notched phones (iPhone X, etc.) */
       @supports (padding: env(safe-area-inset-bottom)) {
         #root {
           padding-bottom: env(safe-area-inset-bottom);

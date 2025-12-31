@@ -1,3 +1,4 @@
+
 {
   "short_name": "Roli Portfolio",
   "name": "Windows 11 UI Portfolio - Roli",
@@ -8,9 +9,9 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "favicon.ico",
+      "type": "image/x-icon",
+      "sizes": "192x192 512x512"
     }
   ],
   "start_url": ".",
